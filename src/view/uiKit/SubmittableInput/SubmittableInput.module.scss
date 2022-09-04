@@ -1,0 +1,29 @@
+@import "../../theme";
+
+.form {
+  width: 100%;
+}
+
+.inputWrapper {
+  display: flex;
+  width: 100%;
+  column-gap: gap(2);
+
+  input {
+    padding: gap(0.5, 1);
+    flex: 1;
+    outline: none;
+    font-size: 1rem;
+    border-color: adjust-color($c-primary, $lightness: $c-step);
+    border-radius: $b-radius;
+
+    &:disabled {
+      color: grey;
+      cursor: default;
+    }
+
+    &:focus {
+      box-shadow: 0 0 5px adjust-color($c-primary, $lightness: 5 * $c-step);
+    }
+  }
+}

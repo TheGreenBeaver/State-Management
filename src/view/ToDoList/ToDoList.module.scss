@@ -1,0 +1,39 @@
+@import "../theme";
+
+.toDoList {
+  width: 100%;
+  margin-block: gap(3);
+  background: adjust-color($c-primary, $alpha: -0.9);
+  padding: gap(2);
+  border-radius: $b-radius;
+  position: relative;
+
+  p {
+    width: 100%;
+    position: absolute;
+    top: gap(2);
+    text-align: center;
+  }
+}
+
+.renderTrackerWrapper {
+  display: flex;
+  justify-content: flex-end;
+
+  &.withGap {
+    margin-bottom: gap(1.5);
+  }
+}
+
+.error {
+  margin-inline: auto;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: gap(1);
+
+  span {
+    color: $c-aggressive;
+  }
+}

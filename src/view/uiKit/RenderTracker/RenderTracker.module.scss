@@ -1,0 +1,10 @@
+@import "../../theme";
+
+.tracker {
+  font-family: 'Source Code Pro', monospace;
+  background: black;
+  color: greenyellow;
+  padding: gap(0.5);
+  border-radius: $b-radius;
+  font-size: 0.8rem;
+}

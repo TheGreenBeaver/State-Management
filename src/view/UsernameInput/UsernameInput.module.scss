@@ -1,0 +1,20 @@
+@import "../theme";
+
+.info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: gap(1);
+
+  h4 {
+    font-weight: normal;
+
+    .selectedUsername {
+      font-weight: 600;
+    }
+
+    .noUsername {
+      color: grey;
+    }
+  }
+}

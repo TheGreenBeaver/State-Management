@@ -1,0 +1,16 @@
+$base-gap: 8px;
+
+@function gap($sizes...) {
+  $result: ();
+  @each $size in $sizes {
+    $result: $result $base-gap * $size;
+  }
+  @return $result;
+}
+
+$c-primary: #00838f;
+$c-aggressive: #dd2c00;
+
+$c-step: 2%;
+
+$b-radius: 4px;

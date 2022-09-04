@@ -1,0 +1,33 @@
+@import "../theme";
+
+.appHeader {
+  padding: gap(2, 4);
+  display: flex;
+  align-items: center;
+  column-gap: gap(3);
+  background: adjust-color($c-primary, $lightness: -1 * $c-step);
+  color: white;
+}
+
+.managerSelectContainer {
+  padding: gap(1);
+  display: flex;
+  align-items: center;
+  column-gap: gap(2);
+  border-radius: $b-radius;
+  background: $c-primary;
+}
+
+.navLink {
+  text-decoration: none;
+  color: white;
+  opacity: 0.4;
+
+  &:hover {
+    opacity: 0.6;
+  }
+
+  &:global.active {
+    opacity: 1;
+  }
+}

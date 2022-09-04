@@ -1,0 +1,37 @@
+@import "../../theme";
+
+@mixin button-theme($base-clr) {
+  background: $base-clr;
+
+  &:disabled {
+    background: adjust-color($base-clr, $whiteness: 22 * $c-step);
+  }
+
+  &:not(:disabled) {
+    &:hover, &:focus {
+      background: adjust-color($base-clr, $lightness: -5 * $c-step);
+    }
+  }
+}
+
+.buttonBase {
+  padding: gap(0.5, 1);
+  text-transform: uppercase;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  color: white;
+  border-radius: $b-radius;
+
+  &:disabled {
+    cursor: default;
+  }
+}
+
+.buttonStandard {
+  @include button-theme($c-primary);
+}
+
+.buttonAggressive {
+  @include button-theme($c-aggressive);
+}

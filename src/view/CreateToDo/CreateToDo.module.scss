@@ -1,0 +1,12 @@
+@import "../theme";
+
+.sectionHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: gap(1);
+
+  h4 {
+    font-weight: normal;
+  }
+}

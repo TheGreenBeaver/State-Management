@@ -1,0 +1,26 @@
+@import "../theme";
+
+.wrapper {
+  column-gap: gap(1);
+  list-style: none;
+  width: 100%;
+  padding: gap(0.5, 1);
+  border-radius: $b-radius;
+  background: adjust-color($c-primary, $alpha: -0.8);
+
+  &:not(:last-of-type) {
+    margin-bottom: gap(1);
+  }
+}
+
+.mainContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  div {
+    display: flex;
+    align-items: center;
+    column-gap: gap(1);
+  }
+}
