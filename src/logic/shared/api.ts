@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ToDo } from './types';
+import { ToDo } from '../types';
 
 const instance = axios.create({ baseURL: 'http://localhost:8000/todos' });
 instance.interceptors.response.use(

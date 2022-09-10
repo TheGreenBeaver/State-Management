@@ -1,6 +1,6 @@
 import { assign, createMachine, sendParent } from 'xstate';
 import { ToDo } from '../types';
-import api from '../api';
+import api from '../shared/api';
 
 export enum ToDoMachineState {
   Idle = 'Idle',

@@ -1,6 +1,6 @@
 import { Atom, atom, Getter, PrimitiveAtom, WritableAtom } from 'jotai';
 import { ToDo } from '../types';
-import api from '../api';
+import api from '../shared/api';
 import messages from '../shared/messages';
 import { selectAtom } from 'jotai/utils';
 import isEqual from 'lodash.isequal';

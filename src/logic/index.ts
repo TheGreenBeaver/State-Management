@@ -6,6 +6,7 @@ import * as valtio from './valtio';
 import * as jotai from './jotai';
 import * as effector from './effector';
 import * as mobx from './mobx';
+import * as rtkQuery from './rtkQuery';
 import {
   UsernameInputLogic,
   ToDoListLogic, SingleToDoLogic,
@@ -23,12 +24,14 @@ const logicDefiners: Record<LogicDefinerName, LogicDefiner> = {
   jotai: jotai.logicDefiner,
   effector: effector.logicDefiner,
   mobx: mobx.logicDefiner,
+  rtkQuery: rtkQuery.logicDefiner,
 };
 
 const storeProviders: Partial<Record<LogicDefinerName, FC<PropsWithChildren>>> = {
   reduxThunks: reduxThunks.Provider,
   reduxSagas: reduxSagas.Provider,
   xstate: xstate.Provider,
+  rtkQuery: rtkQuery.Provider,
 };
 
 const componentTransformers: Partial<Record<LogicDefinerName, ComponentTransformer>> = {

@@ -2,7 +2,7 @@ import { ActionCreatorWithPayload, configureStore, createAction, createReducer }
 import createSagaMiddleware from 'redux-saga';
 import { all, call, put, select, takeEvery, takeLeading } from 'redux-saga/effects';
 import { ToDo } from '../types';
-import api from '../api';
+import api from '../shared/api';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { AppState, initialAppState } from '../shared/appState';
 import messages from '../shared/messages';

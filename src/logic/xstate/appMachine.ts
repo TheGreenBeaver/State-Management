@@ -1,6 +1,6 @@
 import { ActorRefFrom, assign, createMachine, spawn, StateMachine, StateSchema } from 'xstate';
 import { ToDo } from '../types';
-import api from '../api';
+import api from '../shared/api';
 import createToDoMachine, { ToDoMachineContext, ToDoMachineEvent } from './toDoMachine';
 
 export enum AppMachineState {

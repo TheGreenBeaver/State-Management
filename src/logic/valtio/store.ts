@@ -1,6 +1,6 @@
 import { proxy, snapshot } from 'valtio';
 import { AppState, initialAppState } from '../shared/appState';
-import api from '../api';
+import api from '../shared/api';
 import { subscribeKey } from 'valtio/utils';
 import messages from '../shared/messages';
 

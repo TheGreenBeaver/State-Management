@@ -9,6 +9,7 @@ const logicDefinerNames = [
   'mobx',
   'valtio',
   'xstate',
+  'rtkQuery',
 ] as const;
 
 export type LogicDefinerName = typeof logicDefinerNames[number];

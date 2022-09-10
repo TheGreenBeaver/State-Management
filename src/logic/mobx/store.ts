@@ -1,6 +1,6 @@
 import { action, computed, flow, makeObservable, observable, reaction } from 'mobx';
 import { ToDo } from '../types';
-import api from '../api';
+import api from '../shared/api';
 
 export class ToDoStore {
   error: string | null = null;

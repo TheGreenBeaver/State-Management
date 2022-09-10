@@ -1,7 +1,7 @@
 import { createStore, createEvent, createEffect, guard, sample } from 'effector';
 import { AppState, initialAppState } from '../shared/appState';
 import { ToDo } from '../types';
-import api from '../api';
+import api from '../shared/api';
 
 const $appStore = createStore<AppState>(initialAppState);
 const $currentUsernameStore = $appStore.map(state => state.currentUsername);

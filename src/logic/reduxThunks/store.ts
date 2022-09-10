@@ -7,7 +7,7 @@ import {
   ThunkAction,
 } from '@reduxjs/toolkit';
 import { ToDo } from '../types';
-import api from '../api';
+import api from '../shared/api';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { AppState, initialAppState } from '../shared/appState';
 import messages from '../shared/messages';
