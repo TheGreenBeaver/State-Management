@@ -51,8 +51,8 @@ const changeCurrentUsername = createAction<string>('changeCurrentUsername');
 
 const fetchToDos = createAsyncSaga<ToDo[], void>(
   'fetchToDos',
-  function* () {
-    const currentUsername: string = yield select(state => state.currentUsername);
+  function* (): Generator {
+    const currentUsername = (yield select(state => state.currentUsername)) as string;
     if (!currentUsername) {
       return yield call(() => Promise.reject(messages.noUsername));
     }
@@ -82,11 +82,11 @@ const removeToDo = createAsyncSaga<unknown, number>('removeToDo', api.removeToDo
 
 const createToDo = createAsyncSaga<ToDo, string>(
   'createToDo',
-  function* (text) {
+  function* (text): Generator {
     if (!text) {
       return yield call(() => Promise.reject(messages.noText));
     }
-    const currentUsername: string = yield select(state => state.currentUsername);
+    const currentUsername = (yield select(state => state.currentUsername)) as string;
     if (!currentUsername) {
       return yield call(() => Promise.reject(messages.noUsername));
     }

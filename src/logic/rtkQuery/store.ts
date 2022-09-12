@@ -25,37 +25,54 @@ const {
   useChangeToDoDoneMutation,
   useRemoveToDoMutation,
   useCreateToDoMutation,
+  util,
 } = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8000' }),
-  tagTypes: ['ToDo'],
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8000/todos' }),
   endpoints: builder => ({
     fetchToDos: builder.query<ToDo[], void>({
-      queryFn: (_1, { getState }, _2, baseQuery) => {
+      queryFn(_1, { getState }, _2, baseQuery) {
         const { currentUsername } = getState() as AppState;
         return baseQuery(`?username=${currentUsername}`) as QueryReturnValue<ToDo[], FetchBaseQueryError>;
       },
-      providesTags: result => result?.map(toDo => ({ type: 'ToDo', id: toDo.id })) ?? [],
     }),
     changeToDoDone: builder.mutation<ToDo, { id: number, newDoneValue: boolean }>({
       query: ({ id, newDoneValue }) => ({
         url: `/${id}`,
-        method: 'patch',
+        method: 'PATCH',
         body: { done: newDoneValue },
       }),
-      invalidatesTags: result => result ? [{ type: 'ToDo', id: result.id }] : [],
     }),
     removeToDo: builder.mutation<unknown, number>({
-      query: id => ({ url: `/${id}`, method: 'delete' }),
-      invalidatesTags: (_1, _2, id) => [{ type: 'ToDo', id }],
+      query: id => ({ url: `/${id}`, method: 'DELETE' }),
+      async onQueryStarted(id, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          dispatch(util.updateQueryData(
+            'fetchToDos',
+            undefined,
+            draft => draft.filter(toDo => toDo.id !==id)
+          ));
+        } catch {}
+      },
     }),
     createToDo: builder.mutation<ToDo, string>({
-      queryFn: (text, { getState }, _2, baseQuery) => {
+      queryFn(text, { getState }, _2, baseQuery) {
         const { currentUsername } = getState() as AppState;
         return baseQuery({
           url: '',
-          method: 'post',
+          method: 'POST',
           body: { username: currentUsername, text, done: false },
         }) as QueryReturnValue<ToDo, FetchBaseQueryError>;
+      },
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const { data: newToDo } = await queryFulfilled;
+          dispatch(util.updateQueryData(
+            'fetchToDos',
+            undefined,
+            draft => [...draft, newToDo]
+          ));
+        } catch {}
       },
     }),
   }),

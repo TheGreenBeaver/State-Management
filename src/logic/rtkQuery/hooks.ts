@@ -6,41 +6,58 @@ import {
   useAppSelector, useChangeToDoDoneMutation, useCreateToDoMutation,
   useLazyFetchToDosQuery, useRemoveToDoMutation,
 } from './store';
+import { createSelector } from '@reduxjs/toolkit';
+import isEqual from 'lodash.isequal';
+import { useMemo } from 'react';
+
+const creationCacheKey = 'create-to-do-mutation';
 
 const useUsernameInput: UsernameInputLogic = () => {
   const currentUsername = useAppSelector(state => state.currentUsername);
   const { isFetchingToDos } = toDoApiEndpoints.fetchToDos.useQueryState(undefined, {
     selectFromResult: state => ({ isFetchingToDos: state.isFetching }),
   });
+  const [, { isLoading: isCreatingToDo }] = useCreateToDoMutation({ fixedCacheKey: creationCacheKey });
   const dispatch = useAppDispatch();
   return {
     currentUsername,
     setCurrentUsername: newUsername => dispatch(changeCurrentUsername(newUsername)),
-    isDisabled: isFetchingToDos,
+    isDisabled: isFetchingToDos || isCreatingToDo,
   };
 };
 
+type ApiState = ReturnType<typeof toDoApiEndpoints.fetchToDos.useQueryState>;
+const selectToDoList = createSelector(
+  [
+    (state: ApiState) => state.data ? (state.data as ToDo[]).map(toDo => toDo.id) : [],
+    (state: ApiState) => state.isFetching,
+    (state: ApiState) => state.error,
+  ],
+  (toDoIds, isFetching, error) => ({ toDoIds, isFetching, error }),
+  { memoizeOptions: { equalityCheck: isEqual } }
+);
+
 const useToDoList: ToDoListLogic = () => {
-  const [retryFetching, data] = useLazyFetchToDosQuery({
-    selectFromResult: state => ({
-      toDoIds: state.data?.map(toDo => toDo.id) || [],
-      isFetching: state.isFetching,
-      error: state.error?.toString() || null,
-    }),
-  });
+  const data = toDoApiEndpoints.fetchToDos.useQueryState(undefined, { selectFromResult: selectToDoList });
+  const [retryFetching] = useLazyFetchToDosQuery();
   return { ...data, retryFetching };
 };
 
 const useSingleToDo: SingleToDoLogic = id => {
-  const data = toDoApiEndpoints.fetchToDos.useQueryState(undefined, {
-    selectFromResult: state => ({
-      toDo: (state.data as ToDo[]).find(toDo => toDo.id === id) as ToDo,
-    }),
-  });
-  const [changeToDoDone, { error: doneChangeError, isLoading: isChangingDone }] = useChangeToDoDoneMutation();
+  const selectFromResult = useMemo(() => createSelector(
+    (state: ApiState) => state.data as ToDo[],
+    toDos => ({ staleToDo: toDos.find(toDo => toDo.id === id) as ToDo }),
+    { memoizeOptions: { resultEqualityCheck: isEqual, equalityCheck: isEqual } }
+  ), [id]);
+  const { staleToDo } = toDoApiEndpoints.fetchToDos.useQueryState(undefined, { selectFromResult });
+  const [changeToDoDone, {
+    error: doneChangeError,
+    isLoading: isChangingDone,
+    data: updatedToDo,
+  }] = useChangeToDoDoneMutation();
   const [removeToDo, { error: removalError, isLoading: isRemoving }] = useRemoveToDoMutation();
   return {
-    ...data,
+    toDo: updatedToDo || staleToDo,
     changeDone: newDoneValue => changeToDoDone({ id, newDoneValue }),
     remove: () => removeToDo(id),
     error: (removalError || doneChangeError)?.toString() || null,
@@ -49,8 +66,15 @@ const useSingleToDo: SingleToDoLogic = id => {
 };
 
 const useCreateToDo: CreateToDoLogic = () => {
-  const [createToDo, { isLoading, error }] = useCreateToDoMutation();
-  return { createToDo: text => createToDo(text), isDisabled: isLoading, error: error?.toString() || null };
+  const { isFetchingToDos } = toDoApiEndpoints.fetchToDos.useQueryState(undefined, {
+    selectFromResult: state => ({ isFetchingToDos: state.isFetching }),
+  });
+  const [createToDo, { isLoading, error }] = useCreateToDoMutation({ fixedCacheKey: creationCacheKey });
+  return {
+    createToDo,
+    isDisabled: isLoading || isFetchingToDos,
+    error: error?.toString() || null,
+  };
 };
 
 export { useUsernameInput, useToDoList, useSingleToDo, useCreateToDo };

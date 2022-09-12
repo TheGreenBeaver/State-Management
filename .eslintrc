@@ -100,6 +100,9 @@
         "null": "ignore"
       }
     ],
+    "no-empty": ["error", {
+      "allowEmptyCatch": true
+    }],
     "no-multi-spaces": "error",
     "no-trailing-spaces": "error",
     "no-console": "warn",
@@ -124,7 +127,7 @@
         "ignoreComments": true
       }
     ],
-    "indent": [
+    "@typescript-eslint/indent": [
       "error",
       2
     ],
@@ -139,6 +142,9 @@
     "jsx-quotes": [
       "error",
       "prefer-single"
-    ]
+    ],
+    "object-shorthand": ["error", "always", {
+      "avoidExplicitReturnArrows": true
+    }]
   }
 }

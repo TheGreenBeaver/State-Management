@@ -29,7 +29,7 @@ const useUsernameInput: UsernameInputLogic = () => {
   return {
     currentUsername,
     setCurrentUsername: newUsername => send({ type: 'CHANGE_CURRENT_USERNAME', newUsername }),
-    isDisabled: isDisabled,
+    isDisabled,
   };
 };
 
