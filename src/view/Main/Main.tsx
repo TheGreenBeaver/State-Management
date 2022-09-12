@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren } from 'react';
+import { FC, memo, PropsWithChildren } from 'react';
 import { ComponentTransformer, LogicDefiner } from 'logic';
 import usernameInputFactory from '../UsernameInput';
 import toDoListFactory from '../ToDoList';
@@ -11,7 +11,7 @@ function mainFactory(
   componentTransformer?: ComponentTransformer
 ): FC {
   const Wrapper = StoreProvider ?? (({ children }) => <>{children}</>);
-  const transformer = componentTransformer ?? (cmp => cmp);
+  const transformer = componentTransformer ?? memo;
 
   const UsernameInput = usernameInputFactory(logicDefiner.useUsernameInput, transformer);
   const CreateToDo = createToDoFactory(logicDefiner.useCreateToDo, transformer);

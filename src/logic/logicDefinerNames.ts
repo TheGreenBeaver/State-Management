@@ -2,7 +2,7 @@ const logicDefinerNames = [
   'reduxThunks',
   'reduxSagas',
   // 'easyPeasy',
-  // 'zustand',
+  'zustand',
   'effector',
   // 'recoil',
   'jotai',
