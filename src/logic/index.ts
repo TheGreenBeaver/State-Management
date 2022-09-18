@@ -7,6 +7,7 @@ import * as jotai from './jotai';
 import * as effector from './effector';
 import * as mobx from './mobx';
 import * as rtkQuery from './rtkQuery';
+import * as zustand from './zustand';
 import {
   UsernameInputLogic,
   ToDoListLogic, SingleToDoLogic,
@@ -25,6 +26,7 @@ const logicDefiners: Record<LogicDefinerName, LogicDefiner> = {
   effector: effector.logicDefiner,
   mobx: mobx.logicDefiner,
   rtkQuery: rtkQuery.logicDefiner,
+  zustand: zustand.logicDefiner,
 };
 
 const storeProviders: Partial<Record<LogicDefinerName, FC<PropsWithChildren>>> = {

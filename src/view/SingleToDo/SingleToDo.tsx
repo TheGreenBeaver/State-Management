@@ -1,4 +1,4 @@
-import { FC, memo } from 'react';
+import { FC } from 'react';
 import { ComponentTransformer, SingleToDoLogic } from 'logic';
 import Button from '../uiKit/Button';
 import styles from './SingleToDo.module.scss';
@@ -9,7 +9,7 @@ function singleToDoFactory(
   useSingleToDo: SingleToDoLogic,
   componentTransformer: ComponentTransformer,
 ): FC<{ id: number }> {
-  return (componentTransformer || memo)(({ id }) => {
+  return componentTransformer(({ id }) => {
     const { toDo, remove, changeDone, isProcessing, error } = useSingleToDo(id);
     return (
       <li className={styles.wrapper}>

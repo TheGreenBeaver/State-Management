@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 module.exports = (_, res, next) => {
   const errorPossibility = process.env.ERROR_POSSIBILITY ?? 0;
   const errorOccurred = Math.random() < +errorPossibility;
