@@ -43,11 +43,11 @@ const useSingleToDo: SingleToDoLogic = id => {
   ] = useMemo(() => getChangeToDoDoneMolecule(coreAtom), [coreAtom]);
   const isProcessingAtom = useMemo(
     () => combineAtoms(isRemovingAtom, isChangingDoneAtom),
-    [isRemovingAtom, isChangingDoneAtom]
+    [isRemovingAtom, isChangingDoneAtom],
   );
   const errorAtom = useMemo(
     () => combineAtoms(removalErrorAtom, doneChangeErrorAtom),
-    [removalErrorAtom, doneChangeErrorAtom]
+    [removalErrorAtom, doneChangeErrorAtom],
   );
   const remove = useUpdateAtom(removeAtom);
   const changeDone = useUpdateAtom(changeDoneAtom);

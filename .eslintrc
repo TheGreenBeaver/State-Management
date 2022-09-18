@@ -28,27 +28,41 @@
       "version": "detect"
     },
     "import/parsers": {
-      "@typescript-eslint/parser": [".ts", ".tsx"]
+      "@typescript-eslint/parser": [
+        ".ts",
+        ".tsx"
+      ]
     },
     "import/resolver": {
       "typescript": {
-        "project": ["tsconfig.json"]
+        "project": [
+          "tsconfig.json"
+        ]
       }
     }
   },
-  "ignorePatterns": ["server/**", "node_modules"],
+  "ignorePatterns": [
+    "server/**",
+    "node_modules"
+  ],
   "rules": {
     "react/prop-types": "off",
     "array-callback-return": "error",
     "no-await-in-loop": "error",
-    "@typescript-eslint/no-inferrable-types": ["error", {
-      "ignoreParameters": true,
-      "ignoreProperties": true
-    }],
+    "@typescript-eslint/no-inferrable-types": [
+      "error",
+      {
+        "ignoreParameters": true,
+        "ignoreProperties": true
+      }
+    ],
     "@typescript-eslint/no-unused-vars": "error",
-    "no-multiple-empty-lines": ["error", {
-      "max": 1
-    }],
+    "no-multiple-empty-lines": [
+      "error",
+      {
+        "max": 1
+      }
+    ],
     "space-before-function-paren": [
       "error",
       {
@@ -62,7 +76,7 @@
     "no-self-compare": "error",
     "no-unmodified-loop-condition": "error",
     "no-unreachable-loop": "error",
-    "no-use-before-define": "error",
+    "@typescript-eslint/no-use-before-define": "error",
     "arrow-body-style": [
       "error",
       "as-needed"
@@ -72,14 +86,8 @@
       "as-needed"
     ],
     "@typescript-eslint/comma-dangle": [
-      "error", {
-        "arrays": "always-multiline",
-        "objects": "always-multiline",
-        "imports": "always-multiline",
-        "exports": "always-multiline",
-        "functions": "never",
-        "enums": "always-multiline"
-      }
+      "error",
+      "always-multiline"
     ],
     "block-scoped-var": "error",
     "camelcase": "error",
@@ -100,9 +108,12 @@
         "null": "ignore"
       }
     ],
-    "no-empty": ["error", {
-      "allowEmptyCatch": true
-    }],
+    "no-empty": [
+      "error",
+      {
+        "allowEmptyCatch": true
+      }
+    ],
     "no-multi-spaces": "error",
     "no-trailing-spaces": "error",
     "no-console": "warn",
@@ -131,7 +142,7 @@
       "error",
       2
     ],
-    "quotes": [
+    "@typescript-eslint/quotes": [
       "error",
       "single"
     ],
@@ -143,8 +154,46 @@
       "error",
       "prefer-single"
     ],
-    "object-shorthand": ["error", "always", {
-      "avoidExplicitReturnArrows": true
-    }]
+    "object-shorthand": [
+      "error",
+      "always",
+      {
+        "avoidExplicitReturnArrows": true
+      }
+    ],
+    "@typescript-eslint/keyword-spacing": "error",
+    "@typescript-eslint/comma-spacing": "error",
+    "space-in-parens": "error",
+    "semi-spacing": "error",
+    "@typescript-eslint/object-curly-spacing": [
+      "error",
+      "always"
+    ],
+    "key-spacing": "error",
+    "react/jsx-key": "error",
+    "react/jsx-tag-spacing": "error",
+    "react/jsx-wrap-multilines": [
+      "error",
+      {
+        "declaration": "parens-new-line",
+        "assignment": "parens-new-line",
+        "return": "parens-new-line",
+        "arrow": "parens-new-line",
+        "condition": "parens-new-line",
+        "logical": "parens-new-line",
+        "prop": "parens-new-line"
+      }
+    ],
+    "react/jsx-indent": [
+      "error",
+      2
+    ],
+    "generator-star-spacing": [
+      "error",
+      {
+        "before": true,
+        "after": false
+      }
+    ]
   }
 }

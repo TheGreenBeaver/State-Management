@@ -50,7 +50,7 @@ const {
           dispatch(util.updateQueryData(
             'fetchToDos',
             undefined,
-            draft => draft.filter(toDo => toDo.id !==id)
+            draft => draft.filter(toDo => toDo.id !==id),
           ));
         } catch {}
       },
@@ -70,7 +70,7 @@ const {
           dispatch(util.updateQueryData(
             'fetchToDos',
             undefined,
-            draft => [...draft, newToDo]
+            draft => [...draft, newToDo],
           ));
         } catch {}
       },
@@ -79,7 +79,7 @@ const {
 });
 
 const changeCurrentUsername = (
-  newUsername: string
+  newUsername: string,
 ): ThunkAction<void, AppState, undefined, AnyAction> => (dispatch, getState) => {
   const { currentUsername } = getState();
   if (currentUsername === newUsername) {

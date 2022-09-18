@@ -6,7 +6,7 @@ import isEqual from 'lodash.isequal';
 
 function useEffector<Result, Keys extends unknown[] = []>(
   selector: (state: AppState, keys: Keys) => Result,
-  keys: Keys = [] as unknown as Keys
+  keys: Keys = [] as unknown as Keys,
 ): Result {
   return useStoreMap({
     store: $appStore,

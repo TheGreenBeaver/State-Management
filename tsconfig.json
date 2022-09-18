@@ -9,6 +9,7 @@
     "noImplicitAny": true,
     "noImplicitOverride": true,
     "noImplicitReturns": true,
+    "noImplicitThis": true,
     "noUncheckedIndexedAccess": true,
     "strict": true,
     "baseUrl": "src",
@@ -24,7 +25,8 @@
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext"
+      "esnext",
+      "WebWorker"
     ],
     "target": "es5",
     "skipLibCheck": true,

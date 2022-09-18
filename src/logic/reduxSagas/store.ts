@@ -18,13 +18,13 @@ type AsyncSaga<Returned, SagaArg> = ActionCreatorWithPayload<SagaArg> & {
 const allWatcherSagas: Generator[] = [];
 
 function createAsyncSaga<Returned, SagaArg>(
-  typePrefix: string, performWork: (arg: SagaArg) => (Promise<Returned> | Generator)
+  typePrefix: string, performWork: (arg: SagaArg) => (Promise<Returned> | Generator),
 ): AsyncSaga<Returned, SagaArg> {
   const mainActionCreator = createAction<SagaArg>(`${typePrefix}/pending`);
   const fulfilled = createAction<Meta<Returned, SagaArg>>(`${typePrefix}/fulfilled`);
   const rejected = createAction<Meta<string, SagaArg>>(`${typePrefix}/rejected`);
 
-  function* worker({ payload }: ReturnType<typeof mainActionCreator>) {
+  function *worker({ payload }: ReturnType<typeof mainActionCreator>) {
     try {
       const result: Returned = yield call(performWork, payload);
       yield put(fulfilled({ data: result, meta: payload }));
@@ -33,7 +33,7 @@ function createAsyncSaga<Returned, SagaArg>(
     }
   }
 
-  function* watcher() {
+  function *watcher() {
     yield takeLeading(mainActionCreator.type, worker);
   }
 
@@ -51,16 +51,16 @@ const changeCurrentUsername = createAction<string>('changeCurrentUsername');
 
 const fetchToDos = createAsyncSaga<ToDo[], void>(
   'fetchToDos',
-  function* (): Generator {
+  function *(): Generator {
     const currentUsername = (yield select(state => state.currentUsername)) as string;
     if (!currentUsername) {
       return yield call(() => Promise.reject(messages.noUsername));
     }
     return yield call(api.fetchToDosForUsername, currentUsername);
-  }
+  },
 );
 
-function* changeCurrentUsernameWorker({ payload }: ReturnType<typeof setCurrentUsername>) {
+function *changeCurrentUsernameWorker({ payload }: ReturnType<typeof setCurrentUsername>) {
   const currentUsername: string = yield select(state => state.currentUsername);
   if (currentUsername === payload) {
     return;
@@ -69,20 +69,20 @@ function* changeCurrentUsernameWorker({ payload }: ReturnType<typeof setCurrentU
   yield put(fetchToDos());
 }
 
-function* changeCurrentUsernameWatcher() {
+function *changeCurrentUsernameWatcher() {
   yield takeEvery(changeCurrentUsername.type, changeCurrentUsernameWorker);
 }
 allWatcherSagas.push(changeCurrentUsernameWatcher());
 
 const changeToDoDone = createAsyncSaga<ToDo, { id: number, newDoneValue: boolean }>(
-  'changeToDoDone', api.changeToDoDone
+  'changeToDoDone', api.changeToDoDone,
 );
 
 const removeToDo = createAsyncSaga<unknown, number>('removeToDo', api.removeToDo);
 
 const createToDo = createAsyncSaga<ToDo, string>(
   'createToDo',
-  function* (text): Generator {
+  function *(text): Generator {
     if (!text) {
       return yield call(() => Promise.reject(messages.noText));
     }
@@ -91,7 +91,7 @@ const createToDo = createAsyncSaga<ToDo, string>(
       return yield call(() => Promise.reject(messages.noUsername));
     }
     return yield call(api.createToDo, text, currentUsername);
-  }
+  },
 );
 
 const reducer = createReducer(initialAppState, builder => {
@@ -159,7 +159,7 @@ const reducer = createReducer(initialAppState, builder => {
     });
 });
 
-function* rootSaga() {
+function *rootSaga() {
   yield all(allWatcherSagas);
 }
 const sagaMiddleware = createSagaMiddleware();

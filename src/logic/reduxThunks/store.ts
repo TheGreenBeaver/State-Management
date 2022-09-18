@@ -23,7 +23,7 @@ const fetchToDos = createAsyncThunk<ToDo[], undefined, { state: AppState }>('fet
 });
 
 const changeCurrentUsername = (
-  newUsername: string
+  newUsername: string,
 ): ThunkAction<void, AppState, undefined, AnyAction> => (dispatch, getState) => {
   const { currentUsername } = getState();
   if (currentUsername === newUsername) {
@@ -34,7 +34,7 @@ const changeCurrentUsername = (
 };
 
 const changeToDoDone = createAsyncThunk<ToDo, { id: number, newDoneValue: boolean }>(
-  'changeToDoDone', api.changeToDoDone
+  'changeToDoDone', api.changeToDoDone,
 );
 
 const removeToDo = createAsyncThunk<unknown, number>('removeToDo', api.removeToDo);
@@ -50,7 +50,7 @@ const createToDo = createAsyncThunk<ToDo, string, { state: AppState }>(
       return Promise.reject(messages.noUsername);
     }
     return api.createToDo(text, currentUsername);
-  }
+  },
 );
 
 const reducer = createReducer(initialAppState, builder => {

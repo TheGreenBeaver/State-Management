@@ -6,7 +6,7 @@ const mains = Object.fromEntries(
   logicDefinerNames.map(name => [
     name,
     mainFactory(logicDefiners[name], storeProviders[name], componentTransformers[name]),
-  ])
+  ]),
 );
 
 export { Nav, mains };

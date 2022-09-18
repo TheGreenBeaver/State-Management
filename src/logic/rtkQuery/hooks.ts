@@ -34,7 +34,7 @@ const selectToDoList = createSelector(
     (state: ApiState) => state.error,
   ],
   (toDoIds, isFetching, error) => ({ toDoIds, isFetching, error }),
-  { memoizeOptions: { equalityCheck: isEqual } }
+  { memoizeOptions: { equalityCheck: isEqual } },
 );
 
 const useToDoList: ToDoListLogic = () => {
@@ -47,7 +47,7 @@ const useSingleToDo: SingleToDoLogic = id => {
   const selectFromResult = useMemo(() => createSelector(
     (state: ApiState) => state.data as ToDo[],
     toDos => ({ staleToDo: toDos.find(toDo => toDo.id === id) as ToDo }),
-    { memoizeOptions: { resultEqualityCheck: isEqual, equalityCheck: isEqual } }
+    { memoizeOptions: { resultEqualityCheck: isEqual, equalityCheck: isEqual } },
   ), [id]);
   const { staleToDo } = toDoApiEndpoints.fetchToDos.useQueryState(undefined, { selectFromResult });
   const [changeToDoDone, {

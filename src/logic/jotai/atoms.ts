@@ -8,11 +8,11 @@ import isEqual from 'lodash.isequal';
 type Molecule<Arg = undefined> = [
   isFetchingAtom: PrimitiveAtom<boolean>,
   errorAtom: PrimitiveAtom<string | null>,
-  fetchAtom: WritableAtom<null, Arg>
+  fetchAtom: WritableAtom<null, Arg>,
 ];
 
 function molecule<Data, Arg = undefined>(
-  dataAtom: PrimitiveAtom<Data>, fetchData: (arg: Arg, get: Getter) => Promise<Data | ((curr: Data) => Data)>
+  dataAtom: PrimitiveAtom<Data>, fetchData: (arg: Arg, get: Getter) => Promise<Data | ((curr: Data) => Data)>,
 ): Molecule<Arg> {
   const isFetchingAtom = atom<boolean>(false);
   const errorAtom = atom<string | null>(null);
@@ -30,7 +30,7 @@ function molecule<Data, Arg = undefined>(
       } finally {
         set(isFetchingAtom, false);
       }
-    }
+    },
   );
 
   return [isFetchingAtom, errorAtom, fetchAtom];
@@ -59,7 +59,7 @@ const changeCurrentUsernameAtom = atom(
     }
     set(currentUsernameAtom, newUsername);
     await set(fetchToDosAtom);
-  }
+  },
 );
 
 const [
@@ -111,7 +111,7 @@ function getRemoveToDoMolecule(id: number): Molecule {
 function getChangeToDoDoneMolecule(coreAtom: PrimitiveAtom<ToDo>): Molecule<boolean> {
   return molecule<ToDo, boolean>(
     coreAtom,
-    (newDoneValue, get) => api.changeToDoDone({ id: get(coreAtom).id, newDoneValue })
+    (newDoneValue, get) => api.changeToDoDone({ id: get(coreAtom).id, newDoneValue }),
   );
 }
 

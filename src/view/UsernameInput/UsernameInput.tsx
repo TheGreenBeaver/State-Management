@@ -6,7 +6,7 @@ import styles from './UsernameInput.module.scss';
 
 function usernameInputFactory(
   useUsernameInput: UsernameInputLogic,
-  componentTransformer: ComponentTransformer
+  componentTransformer: ComponentTransformer,
 ): FC {
   return componentTransformer(() => {
     const { currentUsername, setCurrentUsername, isDisabled } = useUsernameInput();

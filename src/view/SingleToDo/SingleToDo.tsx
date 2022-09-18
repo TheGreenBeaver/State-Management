@@ -7,7 +7,7 @@ import ErrorMessage from '../uiKit/ErrorMessage';
 
 function singleToDoFactory(
   useSingleToDo: SingleToDoLogic,
-  componentTransformer: ComponentTransformer
+  componentTransformer: ComponentTransformer,
 ): FC<{ id: number }> {
   return (componentTransformer || memo)(({ id }) => {
     const { toDo, remove, changeDone, isProcessing, error } = useSingleToDo(id);

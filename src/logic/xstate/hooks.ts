@@ -14,7 +14,7 @@ import { ToDoMachineState } from './toDoMachine';
 import isEqual from 'lodash.isequal';
 
 function useXstate<T>(
-  selector: (state: State<AppMachineContext, AppMachineEvent, AppMachineTypeState>) => T
+  selector: (state: State<AppMachineContext, AppMachineEvent, AppMachineTypeState>) => T,
 ): [T, InterpreterFrom<typeof appMachine>['send']] {
   const service: InterpreterFrom<typeof appMachine> = useContext(Context);
   const data = useSelector(service, selector, isEqual);
@@ -55,7 +55,7 @@ const useSingleToDo: SingleToDoLogic = id => {
     changeDone: newDoneValue => send({ type: 'CHANGE_DONE', newDoneValue }),
     remove: () => send('REMOVE'),
     isProcessing: [ToDoMachineState.Removing, ToDoMachineState.ChangingDone].some(
-      disabledState => state.matches(disabledState)
+      disabledState => state.matches(disabledState),
     ),
     error: state.context.error,
   };

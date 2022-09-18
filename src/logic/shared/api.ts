@@ -9,7 +9,7 @@ instance.interceptors.response.use(
       return Promise.reject(error.response.data?.message || error.response.statusText || `${error.response.status}`);
     }
     return Promise.reject(error.message ?? 'No response from server');
-  }
+  },
 );
 
 const api = {

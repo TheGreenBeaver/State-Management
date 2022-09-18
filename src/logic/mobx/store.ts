@@ -69,7 +69,7 @@ class AppStore {
     });
     reaction(
       () => this.currentUsername,
-      (value, previousValue) => value && previousValue !== value && this.fetchToDos()
+      (value, previousValue) => value && previousValue !== value && this.fetchToDos(),
     );
   }
 

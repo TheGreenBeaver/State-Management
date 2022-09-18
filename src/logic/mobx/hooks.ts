@@ -16,7 +16,7 @@ const useToDoList: ToDoListLogic = () => ({
 });
 
 const useSingleToDo: SingleToDoLogic = id => computed(
-  () => appStore.toDos.find(store => store.toDo.id === id) as ToDoStore
+  () => appStore.toDos.find(store => store.toDo.id === id) as ToDoStore,
 ).get();
 
 const useCreateToDo: CreateToDoLogic = () => ({

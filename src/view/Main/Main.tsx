@@ -8,7 +8,7 @@ import styles from './Main.module.scss';
 function mainFactory(
   logicDefiner: LogicDefiner,
   StoreProvider?: FC<PropsWithChildren>,
-  componentTransformer?: ComponentTransformer
+  componentTransformer?: ComponentTransformer,
 ): FC {
   const Wrapper = StoreProvider ?? (({ children }) => <>{children}</>);
   const transformer = componentTransformer ?? (cmp => cmp);

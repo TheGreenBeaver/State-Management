@@ -7,7 +7,7 @@ const usernameInputSelector = createSelector([
   (state: AppState) => state.currentUsername,
   (state: AppState) => state.isFetchingToDos || state.isCreatingToDo,
 ], (currentUsername, isDisabled) => ({ currentUsername, isDisabled }),
-{ memoizeOptions: { equalityCheck: isEqual } }
+{ memoizeOptions: { equalityCheck: isEqual } },
 );
 
 const toDoListSelector = createSelector([

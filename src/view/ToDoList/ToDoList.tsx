@@ -9,7 +9,7 @@ import Button from '../uiKit/Button';
 function toDoListFactory(
   useToDoList: ToDoListLogic,
   useSingleToDo: SingleToDoLogic,
-  componentTransformer: ComponentTransformer
+  componentTransformer: ComponentTransformer,
 ): FC {
   const SingleToDo = singleToDoFactory(useSingleToDo, componentTransformer);
   return componentTransformer(() => {

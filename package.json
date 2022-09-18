@@ -34,7 +34,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "start:server": "ERROR_POSSIBILITY=0 && json-server --watch server/db.json --port 8000 --delay 280 --middlewares server/middleware.js",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "check-ts": "tsc"
   },
   "browserslist": {
     "production": [
